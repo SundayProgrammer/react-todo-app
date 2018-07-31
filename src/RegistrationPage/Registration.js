@@ -4,6 +4,7 @@ import {
   Button,
   Container,
   Form,
+  FormFeedback,
   FormGroup,
   Input,
   Label
@@ -15,7 +16,7 @@ class Registration extends Component {
   emptyForm = {
     email: '',
     password: '',
-    agreement: ''
+    agreement: false
   }
 
   constructor(props) {
@@ -28,6 +29,7 @@ class Registration extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.toggleAgreement = this.toggleAgreement.bind(this);
   }
 
   async handleSubmit(event) {
@@ -38,11 +40,6 @@ class Registration extends Component {
     if (user.email && user.password && user.argeement) {
 
     }
-    await fetch('/api/users', {
-      method: 'POST',
-      body: JSON.stringify(user),
-      credentials: 'include'
-    });
   }
 
   handleChange(event) {
@@ -66,21 +63,20 @@ class Registration extends Component {
             <FormGroup>
               <Label for="email">EMAIL ADDRESS</Label>
               <Input type="text" name="email" id="email" value={user.email || ''}
-                     onChange={this.handleChange} autoComplete="address-level1"/>
-              {submitted && !user.email && <div className="help-block">Email is required</div>}
+                     onChange={this.handleChange} invalid={submitted && !user.email}/>
+              {submitted && !user.email && <FormFeedback>Email is required</FormFeedback>}
             </FormGroup>
             <FormGroup>
               <Label for="password">PASSWORD</Label>
               <Input type="password" name="password" id="password" value={user.password || ''}
-                     onChange={this.handleChange} autoComplete="password"/>
-              {submitted && !user.password && <div className="help-block">Password is required</div>}
+                     onChange={this.handleChange} invalid={submitted && !user.password}/>
+              {submitted && !user.password && <FormFeedback>Password is required</FormFeedback>}
             </FormGroup>
             <FormGroup check>
-              <Label check>
-                <Input type="checkbox" id="checkbox2" />{' '}
-                I agree to the terms of service and privacy policy
-              </Label>
-              {submitted && !user.agreement && <div className="help-block">Agreement is required</div>}
+              <Label for="agreement"></Label>
+              <Input type="checkbox" name="agreement" onChange={this.handleChange} id="agreement" invalid={submitted && !user.agreement}/>{' '}
+              I agree to the terms of service and privacy policy
+              {submitted && !user.agreement && <FormFeedback>Agreement is required</FormFeedback>}
             </FormGroup>
             <br />
             <FormGroup>

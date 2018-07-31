@@ -1,22 +1,39 @@
 import React, { Component } from 'react';
 import {
-  Container,
-  Button
+  Navbar,
+  NavItem,
+  Nav,
+  NavLink,
+  NavbarBrand
 } from 'reactstrap';
 
 class AppNavbar extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      isLogged: false
+    }
+  }
+
+  componentDidMount() {
+
   }
 
   render() {
     return (
-      <div className="AppNavbar">
-        <Container>
-          <Button color="secondary">Sign up</Button>
-          <Button color="secondary">Log in</Button>
-        </Container>
-      </div>
+      <Navbar color="dark" dark expand="md">
+        <NavbarBrand href="/">reactstrap</NavbarBrand>
+          <Nav className="ml-auto" navbar>
+            <NavItem>
+              <NavLink href="/login/">Log in</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="/signup/">Sign up</NavLink>
+            </NavItem>
+          </Nav>
+      </Navbar>
     );
   }
 }
+
+export { AppNavbar };

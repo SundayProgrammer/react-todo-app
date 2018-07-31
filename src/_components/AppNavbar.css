@@ -1,0 +1,16 @@
+.AppNavbar {
+
+}
+
+.content {
+  float: right;
+}
+
+.clear-float {
+  clear: right;
+}
+
+.Container {
+  padding-bottom: 5px;
+  padding-top: 5px; 
+}

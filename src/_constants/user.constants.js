@@ -4,4 +4,4 @@ export const userConstants = {
   REGISTER_FAILURE: 'USER_REGISTER_FAILURE',
 
   LOGOUT: 'USER_LOGOUT'
-}
+};

@@ -22,7 +22,7 @@ class AppNavbar extends Component {
   render() {
     return (
       <Navbar color="dark" dark expand="md">
-        <NavbarBrand href="/">reactstrap</NavbarBrand>
+        <NavbarBrand href="/">ecfectus</NavbarBrand>
           <Nav className="ml-auto" navbar>
             <NavItem>
               <NavLink href="/login/">Log in</NavLink>

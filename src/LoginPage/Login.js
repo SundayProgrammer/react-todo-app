@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { AppNavbar } from '../_components';
 
-class Registration extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
   }
@@ -11,11 +11,11 @@ class Registration extends Component {
       <div>
         <AppNavbar />
         <div>
-          Registration
+          Login component
         </div>
       </div>
     );
   }
 }
 
-export { Registration };
+export { Login };

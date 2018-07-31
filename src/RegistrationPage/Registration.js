@@ -29,7 +29,6 @@ class Registration extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.toggleAgreement = this.toggleAgreement.bind(this);
   }
 
   async handleSubmit(event) {

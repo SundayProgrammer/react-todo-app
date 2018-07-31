@@ -9,6 +9,7 @@ import {
   Input,
   Label
 } from 'reactstrap';
+import { userActions } from '../_actions';
 import './Registration.css';
 
 class Registration extends Component {
@@ -34,10 +35,11 @@ class Registration extends Component {
   async handleSubmit(event) {
     event.preventDefault();
     const {user} = this.state;
+    const {dispatch} = this.props;
     this.setState({submitted: true});
 
     if (user.email && user.password && user.argeement) {
-
+      dispatch(userActions.register(user));
     }
   }
 

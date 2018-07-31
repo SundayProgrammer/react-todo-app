@@ -1,4 +1,10 @@
 import { userConstants } from '../_constants';
+import { userService } from '../_services';
+import { history } from '../_helpers';
+
+export const userActions = {
+  register
+};
 
 function register(user) {
   return dispatch => {
@@ -9,13 +15,12 @@ function register(user) {
         user => {
           dispatch(success(user));
           history.push('/login');
-        }
+        },
         error => {
           dispatch(failure(error));
-
         }
       )
-  }
+  };
 
   function request(user) {
     return { type: userConstants.REGISTER_REQUEST, user };

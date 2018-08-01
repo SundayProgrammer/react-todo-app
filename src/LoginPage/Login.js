@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { AppNavbar } from '../_components';
 import {
   Button,
@@ -45,7 +46,7 @@ class Login extends Component {
     this.setState({submitted: true});
 
     if (email && password) {
-      dispatch(userActions.login(email, password));
+      dispatch(userActions.login(email, password, this.props.history));
     }
   }
 
@@ -86,5 +87,5 @@ function mapStateToProps(state) {
   };
 }
 
-const connectedLoginPage = connect(mapStateToProps)(Login);
+const connectedLoginPage = withRouter(connect(mapStateToProps)(Login));
 export { connectedLoginPage as Login };

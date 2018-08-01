@@ -7,7 +7,7 @@ export const userActions = {
   register
 };
 
-function login(email, password) {
+function login(email, password, history) {
   return dispatch => {
     dispatch(request({ email }));
 
@@ -34,7 +34,7 @@ function login(email, password) {
   }
 }
 
-function register(user) {
+function register(user, history) {
   return dispatch => {
     dispatch(request(user));
 

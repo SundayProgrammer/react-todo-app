@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { AppNavbar } from '../_components';
 import {
   Button,
@@ -104,5 +105,5 @@ function mapStateToProps(state) {
   };
 }
 
-const connectedRegistrationPage = connect(mapStateToProps)(Registration);
+const connectedRegistrationPage = withRouter(connect(mapStateToProps)(Registration));
 export { connectedRegistrationPage as Registration };

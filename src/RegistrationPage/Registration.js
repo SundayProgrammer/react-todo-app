@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { AppNavbar } from '../_components';
 import {
   Button,
@@ -32,23 +33,29 @@ class Registration extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  async handleSubmit(event) {
+  handleSubmit(event) {
     event.preventDefault();
-    const {user} = this.state;
-    const {dispatch} = this.props;
+    const { email, password } = this.state.user;
+    const { agreement } = this.state.user;
+    const { user } = this.state;
+    const { dispatch } = this.props;
     this.setState({submitted: true});
 
-    if (user.email && user.password && user.argeement) {
+    if ((email && password && agreement)) {
       dispatch(userActions.register(user));
     }
   }
 
   handleChange(event) {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
+    const { name, value } = event.target;
     let user = {...this.state.user};
-    user[name] = value;
+
+    if (name !== 'agreement') {
+      const { value } = event.target;
+      user[name] = value;
+    } else {
+      user[name] = !this.state.user.agreement;
+    }
     this.setState({user});
   }
 
@@ -75,7 +82,7 @@ class Registration extends Component {
             </FormGroup>
             <FormGroup check>
               <Label for="agreement"></Label>
-              <Input type="checkbox" name="agreement" onChange={this.handleChange} id="agreement" invalid={submitted && !user.agreement}/>{' '}
+              <Input type="checkbox" name="agreement" onChange={this.handleChange} id="agreement" checked={user.agreement} invalid={submitted && !user.agreement}/>{' '}
               I agree to the terms of service and privacy policy
               {submitted && !user.agreement && <FormFeedback>Agreement is required</FormFeedback>}
             </FormGroup>
@@ -90,4 +97,12 @@ class Registration extends Component {
   }
 }
 
-export { Registration };
+function mapStateToProps(state) {
+  const { registering } = state.registration;
+  return {
+    registering
+  };
+}
+
+const connectedRegistrationPage = connect(mapStateToProps)(Registration);
+export { connectedRegistrationPage as Registration };

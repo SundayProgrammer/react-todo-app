@@ -7,6 +7,9 @@ import './index.css';
 import { App } from './App';
 import registerServiceWorker from './registerServiceWorker';
 
+import { configureFakeBackend } from './_helpers';
+configureFakeBackend();
+
 ReactDOM.render(
   <Provider store={store}>
     <App />

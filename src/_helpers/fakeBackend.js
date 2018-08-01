@@ -3,7 +3,7 @@ let users = JSON.parse(localStorage.getItem('users')) || [];
 export function configureFakeBackend() {
   let realFetch = window.fetch;
   window.fetch = function (url, opts) {
-    Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       setTimeout(() => {
 
         if (url.endsWith('/api/users/authenticate') && opts.method === 'POST') {
@@ -43,13 +43,13 @@ export function configureFakeBackend() {
         if (url.match(/\/api\/users\/\d+$/) && opts.method === 'GET') {
           if (opts.headers && opts.headers.Authorization === 'Token fake-jwt-token') {
             let urlParts = url.split('/');
-            let id = parseInt(urlParts[urlParts.length - 1]);
+            let id = parseInt(urlParts[urlParts.length - 1], 10);
             let matchedUsers = users.filter(user => { return user.id === id; });
             let user = matchedUsers.length ? matchedUsers[0] : null;
 
             resolve({ ok: true, text: () => JSON.stringify(user)});
           } else {
-              reject('Unauthorised');true
+              reject('Unauthorised');
           }
 
           return;
@@ -76,7 +76,7 @@ export function configureFakeBackend() {
         if (url.match(/\/api\/users\/\d+$/) && opts.method === 'DELETE') {
           if (opts.headers && opts.headers.Authorization === 'Token fake-jwt-token') {
             let urlParts = url.split('/');
-            let id = parseInt(urlParts[urlParts.length - 1]);
+            let id = parseInt(urlParts[urlParts.length - 1], 10);
             for (var i = 0; i < users.length; i++) {
               let user = users[i]
               if (user.id === id) {

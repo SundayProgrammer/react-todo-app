@@ -11,21 +11,27 @@ class Tasks extends Component {
       priority: 1,
       project: 'Project',
       category: 'Category',
-      comment: 'This is comment'
+      comment: 'This is comment',
+      date: '2018-08-02',
+      state: true
     },
     {
       title: 'Default task which you do every noon',
       priority: 2,
       project: 'Project',
       category: 'Category',
-      comment: 'This is comment'
+      comment: 'This is comment',
+      date: '2018-08-03',
+      state: true
     },
     {
       title: 'Default task which you do every enening',
       priority: 0,
       project: 'Project2',
       category: 'Category',
-      comment: 'This is a little bit longer comment'
+      comment: 'This is a little bit longer comment',
+      date: '2018-08-03',
+      state: false
     }
   ];
 

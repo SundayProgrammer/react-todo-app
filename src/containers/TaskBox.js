@@ -13,12 +13,15 @@ class TaskBox extends Component {
   render() {
     const { title, tasks } = this.props;
 
-    for (var i = 0; i < tasks.length; i++) {
+    var currentData = new Date(), today = currentData.getFullYear() + '-' + (currentData.getMonth() + 1) + '-' + currentData.getDate();
 
-    }
+    const taskList = tasks.map( dailyTasks => {
+      return (
+        <h2>{}</h2>
+        dailyTasks.map(task => {
 
-    const taskList = tasks.map(dailyTasks => dailyTasks.map(task => {
-
+        }
+      )
     }));
 
     <div>

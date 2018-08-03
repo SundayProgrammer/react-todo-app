@@ -6,6 +6,7 @@ import {
   NavLink,
   NavbarBrand
 } from 'reactstrap';
+import { userActions } from '../_actions';
 
 class AppNavbar extends Component {
   constructor(props) {
@@ -13,24 +14,48 @@ class AppNavbar extends Component {
     this.state = {
       isLogged: false
     }
+
+    this.handleLogout = this.handleLogout.bind(this);
   }
 
   componentDidMount() {
+    if (localStorage.getItem('user')) {
+      this.setState({ isLogged: true });
+    }
+  }
 
+  handleLogout() {
+    const { dispatch } = this.props;
+
+    dispatch(userActions.logout());
+    this.setState({ isLogged: false });
   }
 
   render() {
+    const { isLogged } = this.state;
+
     return (
       <Navbar color="dark" dark expand="md">
         <NavbarBrand href="/">ecfectus</NavbarBrand>
-          <Nav className="ml-auto" navbar>
-            <NavItem>
-              <NavLink href="/login/">Log in</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/signup/">Sign up</NavLink>
-            </NavItem>
-          </Nav>
+          { isLogged ?
+            (
+              <Nav className="ml-auto" navbar>
+                <NavItem>
+                  <NavLink href="/" onClick={this.handleLogout}>Logout</NavLink>
+                </NavItem>
+              </Nav>
+            )
+            : (
+              <Nav className="ml-auto" navbar>
+                <NavItem>
+                  <NavLink href="/login/">Log in</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/signup/">Sign up</NavLink>
+                </NavItem>
+              </Nav>
+            )
+          }
       </Navbar>
     );
   }

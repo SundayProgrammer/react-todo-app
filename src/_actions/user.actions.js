@@ -4,10 +4,11 @@ import { history } from '../_helpers';
 
 export const userActions = {
   login,
+  logout,
   register
 };
 
-function login(email, password, history) {
+function login(email, password) {
   return dispatch => {
     dispatch(request({ email }));
 
@@ -34,7 +35,13 @@ function login(email, password, history) {
   }
 }
 
-function register(user, history) {
+function logout() {
+    userService.logout();
+    history.push('/');
+    return { type: userConstants.LOGOUT };
+}
+
+function register(user) {
   return dispatch => {
     dispatch(request(user));
 

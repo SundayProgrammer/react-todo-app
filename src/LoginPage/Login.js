@@ -46,7 +46,7 @@ class Login extends Component {
     this.setState({submitted: true});
 
     if (email && password) {
-      dispatch(userActions.login(email, password, this.props.history));
+      dispatch(userActions.login(email, password));
     }
   }
 

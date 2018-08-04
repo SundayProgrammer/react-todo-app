@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container } from 'reactstrap';
 import { AppNavbar } from '../_components';
-import { Task } from '../_components';
+import { TaskBox } from '../_containers';
 
 class Tasks extends Component {
 
@@ -39,7 +39,7 @@ class Tasks extends Component {
     return (
       <div>
         <AppNavbar />
-        <Task task={this.tasks} />
+        <TaskBox tasks={this.tasks} />
       </div>
     )
   }

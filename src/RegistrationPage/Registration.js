@@ -43,7 +43,7 @@ class Registration extends Component {
     this.setState({submitted: true});
 
     if ((email && password && agreement)) {
-      dispatch(userActions.register(user));
+      dispatch(userActions.register(user, this.props.history));
     }
   }
 

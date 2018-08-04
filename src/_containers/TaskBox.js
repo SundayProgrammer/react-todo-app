@@ -11,24 +11,33 @@ class TaskBox extends Component {
   }
 
   render() {
-    const { title, tasks } = this.props;
+    const { tasks } = this.props;
 
     var currentData = new Date(), today = currentData.getFullYear() + '-' + (currentData.getMonth() + 1) + '-' + currentData.getDate();
 
     const taskList = tasks.map( dailyTasks => {
       return (
-        <h2>{}</h2>
-        dailyTasks.map(task => {
+        <div>
+          <h2>{}</h2>
+          <div>
+            <Task task={dailyTasks} />
+            {/* {dailyTasks.map(task => {
+              <Task task={task} />
+            })} */}
+          </div>
+        </div>
+      );
+    });
 
-        }
-      )
-    }));
-
-    <div>
-      <h3>{title}</h3>
+    return (
       <div>
-
+        <h3>{}</h3>
+        <div>
+          {taskList}
+        </div>
       </div>
-    </div>
+    );
   }
 }
+
+export { TaskBox };

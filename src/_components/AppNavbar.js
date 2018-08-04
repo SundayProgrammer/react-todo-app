@@ -27,7 +27,7 @@ class AppNavbar extends Component {
   handleLogout() {
     const { dispatch } = this.props;
 
-    dispatch(userActions.logout());
+    dispatch(userActions.logout(this.props.history));
     this.setState({ isLogged: false });
   }
 

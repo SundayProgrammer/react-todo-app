@@ -1,6 +1,5 @@
 import { userConstants } from '../_constants';
 import { userService } from '../_services';
-import { history } from '../_helpers';
 
 export const userActions = {
   login,
@@ -8,7 +7,7 @@ export const userActions = {
   register
 };
 
-function login(email, password) {
+function login(email, password, history) {
   return dispatch => {
     dispatch(request({ email }));
 
@@ -35,13 +34,13 @@ function login(email, password) {
   }
 }
 
-function logout() {
+function logout(history) {
     userService.logout();
     history.push('/');
     return { type: userConstants.LOGOUT };
 }
 
-function register(user) {
+function register(user, history) {
   return dispatch => {
     dispatch(request(user));
 

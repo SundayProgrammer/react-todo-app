@@ -35,22 +35,6 @@ const Task = ({ task }) => {
           </div>
           <div style={{clear: 'both'}}></div>
         </div>
-
-        <div className="row">
-          <div class="div-handler" style={{width: 2 + 'em'}}></div>
-          <div class="first-div" style={priorityStyle}></div>
-          <div class="second-div">
-            <div class="title">{title}</div>
-            <div class="category">{category}</div>
-          </div>
-          <div class="third-div">
-            <div>
-              {project}
-            </div>
-          </div>
-          <div style={{clear: 'both'}}></div>
-        </div>
-
       </Container>
     </div>
   );

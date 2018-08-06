@@ -12,22 +12,41 @@ class TaskBox extends Component {
 
   render() {
     const { tasks } = this.props;
+    var title = "";
+    var presentTasks = [], overdueTasks = [], futureTasks = [];
 
     var currentData = new Date(), today = currentData.getFullYear() + '-' + (currentData.getMonth() + 1) + '-' + currentData.getDate();
 
     const taskList = tasks.map( dailyTasks => {
+      if (dailyTasks.date.localeCompare(today) === 0) {
+        title = "Today";
+        presentTasks.push(dailyTasks.tasks);
+      } else if (dailyTasks.date.localeCompare(today) === -1) {
+        title = "Overdue";
+      } else {
+        title = dailyTasks.date;
+      }
+
+      console.log(today);
+      console.log(dailyTasks.date);
+
       return (
         <div>
-          <h2>{}</h2>
+          <h3>{title}</h3>
           <div>
-            <Task task={dailyTasks} />
-            {/* {dailyTasks.map(task => {
-              <Task task={task} />
-            })} */}
+            {
+              dailyTasks.tasks.map(task => {
+                return (
+                  <Task task={task} />
+                );
+              })
+            }
           </div>
         </div>
       );
     });
+
+    console.log(taskList);
 
     return (
       <div>

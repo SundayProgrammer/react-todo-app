@@ -3,7 +3,6 @@ import { Route, Redirect } from 'react-router-dom';
 import { ErrorBoundary } from '../_components';
 
 export const AuthenticatedRoute = ({ component: C, ...rest }) => {
-  console.log(localStorage.getItem('user'))
   return (
     <ErrorBoundary>
       <Route {...rest} render={props => {

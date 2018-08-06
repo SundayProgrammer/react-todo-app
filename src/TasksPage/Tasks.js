@@ -54,6 +54,15 @@ class Tasks extends Component {
             comment: 'This is comment',
             date: '2018-8-4',
             state: true
+          },
+          {
+            title: 'Default task for Friday',
+            priority: 0,
+            project: 'Project 3',
+            category: 'Bike riding',
+            comment: 'This is comment unvisible',
+            date: '2018-8-4',
+            state: true
           }
         ]
       }

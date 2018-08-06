@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Task } from '../_components';
+import { Container } from 'reactstrap';
 
 class TaskBox extends Component {
   constructor(props) {
@@ -89,6 +90,8 @@ class TaskBox extends Component {
         var overdueList = (
           <div>
             <h3>{overdueTitle}</h3>
+            <div class="row">
+            </div>
             {overdueTasksList}
           </div>
         );
@@ -100,7 +103,9 @@ class TaskBox extends Component {
             title = day.date;
             return (
               <div>
-                <h3>{title}</h3>
+                <div class="row">
+                  <h3>{title}</h3>
+                </div>
                 <div>
                   { day.map(task => {
                       return (
@@ -142,10 +147,12 @@ class TaskBox extends Component {
 
     return (
       <div>
-        <h3>{}</h3>
-        <div>
-          {taskList()}
-        </div>
+        <Container>
+          <h3>{}</h3>
+          <div>
+            {taskList()}
+          </div>
+        </Container>
       </div>
     );
   }

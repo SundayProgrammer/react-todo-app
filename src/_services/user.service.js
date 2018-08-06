@@ -3,7 +3,12 @@ import { authHeader } from '../_helpers';
 export const userService = {
   login,
   logout,
-  register
+  register,
+  createEntity,
+  getAllTasks,
+  getClassifiers,
+  update,
+  delete: _delete
 };
 
 function login(email, password) {
@@ -93,6 +98,7 @@ function getClassifiers(type) {
  * - task
  * - project
  * - category
+ * - user @// TODO: think about side effects
  */
 
 function update(type, updateObject) {

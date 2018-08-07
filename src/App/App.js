@@ -8,17 +8,16 @@ import { Home } from '../HomePage';
 import { Registration } from '../RegistrationPage';
 import { Login } from '../LoginPage';
 import { Tasks } from '../TasksPage';
-import { history } from '../_helpers';
-import { AuthenticatedRoute } from '../_components';
+import { AuthenticatedRoute, UnauthenticatedRoute } from '../_components';
 
 export class App extends Component {
   render() {
     return (
       <Router>
         <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/signup" exact component={Registration} />
-          <Route path="/login" exact component={Login} />
+          <UnauthenticatedRoute path="/" exact component={Home} />
+          <UnauthenticatedRoute path="/signup" exact component={Registration} />
+          <UnauthenticatedRoute path="/login" exact component={Login} />
           <AuthenticatedRoute component={Tasks} exact path="/tasks" />
         </Switch>
       </Router>

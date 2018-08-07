@@ -16,7 +16,9 @@ class TaskBox extends Component {
     var title = "";
     var presentTasks = [], overdueTasks = [], futureTasks = [];
 
-    var currentData = new Date(), today = currentData.getFullYear() + '-' + (currentData.getMonth() + 1) + '-' + currentData.getDate();
+    var currentData = new Date(), today = currentData.getFullYear() + '-' + ('0' + (currentData.getMonth()+1)).slice(-2) + '-' + ('0' + currentData.getDate()).slice(-2);
+
+    console.log(today);
 
     tasks.forEach(day => {
       if (day.date.localeCompare(today) === 0) {
@@ -28,9 +30,9 @@ class TaskBox extends Component {
       }
     });
 
-    console.log(presentTasks);
-    console.log(futureTasks);
-    console.log(overdueTasks);
+    sessionStorage.setItem('presentTasks', presentTasks);
+    sessionStorage.setItem('futureTasks', futureTasks);
+    sessionStorage.setItem('overdueTasks', overdueTasks);
 
     /*
      * Generates list of tasks composed of three time blocks:
@@ -58,7 +60,6 @@ class TaskBox extends Component {
           } else {
             return;
           }
-
         });
 
         var presentList = (
@@ -84,7 +85,6 @@ class TaskBox extends Component {
           } else {
             return;
           }
-
         });
 
         var overdueList = (
@@ -118,7 +118,6 @@ class TaskBox extends Component {
           } else {
             return;
           }
-
         });
       }
 

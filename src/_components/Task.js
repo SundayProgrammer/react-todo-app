@@ -21,17 +21,23 @@ const Task = ({ task }) => {
   return (
     <div>
       <Container>
-        <div className="row">
+        <div className="row hover-class">
           <div class="div-handler"></div>
           <div class="first-div" style={priorityStyle}></div>
           <div class="second-div">
             <div class="title">{title}</div>
             <div class="category">{category}</div>
           </div>
+          <div className="hover-comment">
+
+          </div>
           <div class="third-div">
             <div>
               {project}
             </div>
+          </div>
+          <div className="hover-edit">
+            <svg-icon><src href="../_icons/si-glyph-pencil" /></svg-icon>
           </div>
           <div style={{clear: 'both'}}></div>
         </div>

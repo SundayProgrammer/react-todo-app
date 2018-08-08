@@ -83,7 +83,7 @@ function update(type, updateObject) {
 }
 
 /*
- *  DELETE
+ *  DELETE_delete
  *
  * Function deletes one of following entities:
  * - task

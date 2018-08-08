@@ -2,7 +2,11 @@ import { tasksConstants } from '../_constants';
 import { tasksService } from '../_services';
 
 export const taskActions = {
-
+  createTask,
+  getTasks,
+  getClassifiers,
+  update,
+  delete: _delete
 };
 
 /*
@@ -28,14 +32,14 @@ function createTask(task, history) {
       );
   }
 
-  request = (title) => {
-    return { type: tasksConstants.CREATION_REQEST, title };
+  request = (type) => {
+    return { type: tasksConstants.CREATE_REQUEST, type };
   }
-  success = (title) => {
-    return { type: tasksConstants.CREATION_SUCCESS, title };
+  success = (type) => {
+    return { type: tasksConstants.CREATE_SUCCESS, type };
   }
   failure = (error) => {
-    return { type: tasksConstants.CREATION_FAILURE, error };
+    return { type: tasksConstants.CREATE_FAILURE, error };
   }
 }
 
@@ -59,39 +63,13 @@ function getTasks(type, constraints) {
   }
 
   request = (type) => {
-    return { type: tasksConstants.CREATION_REQEST, type };
+    return { type: tasksConstants.GET_REQUEST, type };
   }
   success = (type) => {
-    return { type: tasksConstants.CREATION_SUCCESS, type };
+    return { type: tasksConstants.GET_SUCCESS, type };
   }
   failure = (error) => {
-    return { type: tasksConstants.CREATION_FAILURE, error };
-  }
-}
-
-function getClassifiers(type) {
-  return dispatch => {
-    dispatch(request({ type }));
-
-    tasksService.getClassifiers(type)
-      .then(
-        type => {
-          dispatch(success(type));
-        },
-        error => {
-          dispatch(failure(error));
-        }
-      );
-  }
-
-  request = (type) => {
-    return { type: tasksConstants.CREATION_REQEST, type };
-  }
-  success = (type) => {
-    return { type: tasksConstants.CREATION_SUCCESS, type };
-  }
-  failure = (error) => {
-    return { type: tasksConstants.CREATION_FAILURE, error };
+    return { type: tasksConstants.GET_FAILURE, error };
   }
 }
 
@@ -113,13 +91,13 @@ function update(type, updateObject) {
   }
 
   request = (type) => {
-    return { type: tasksConstants.CREATION_REQEST, type };
+    return { type: tasksConstants.UPDATE_REQUEST, type };
   }
   success = (type) => {
-    return { type: tasksConstants.CREATION_SUCCESS, type };
+    return { type: tasksConstants.UPDATE_SUCCESS, type };
   }
   failure = (error) => {
-    return { type: tasksConstants.CREATION_FAILURE, error };
+    return { type: tasksConstants.UPDATE_FAILURE, error };
   }
 }
 
@@ -127,7 +105,7 @@ function _delete(type, id) {
   return dispatch => {
     dispatch(request({ type }));
 
-    tasksService.update(type, id)
+    tasksService.delete(type, id)
       .then(
         type => {
           dispatch(success(type));
@@ -141,12 +119,12 @@ function _delete(type, id) {
   }
 
   request = (type) => {
-    return { type: tasksConstants.CREATION_REQEST, type };
+    return { type: tasksConstants.DELETE_REQUEST, type };
   }
   success = (type) => {
-    return { type: tasksConstants.CREATION_SUCCESS, type };
+    return { type: tasksConstants.DELETE_SUCCESS, type };
   }
   failure = (error) => {
-    return { type: tasksConstants.CREATION_FAILURE, error };
+    return { type: tasksConstants.DELETE_FAILURE, error };
   }
 }

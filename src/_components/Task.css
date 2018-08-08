@@ -24,3 +24,11 @@
   width: 8%;
   font-weight: bolder;
 }
+
+.hover-class .hover-comment {
+    visibility: hidden;
+}
+
+.hover-class:hover .hover-comment {
+    visibility: visible;
+}

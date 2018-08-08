@@ -17,7 +17,6 @@ const Task = ({ task }) => {
   var priorityStyle = {
     'border-color': priorityColor
   }
-  // LightSkyBlue
 
   return (
     <div>
@@ -26,28 +25,26 @@ const Task = ({ task }) => {
           <table className="item_table">
             <tbody>
               <tr>
-                <td>
+                <td className="item_priority">
                   <div class="first-div" style={priorityStyle}></div>
                 </td>
-                <td>
+                <td className="item_title_category_comment">
                   <div class="second-div">
-                    <div class="title">{title}</div>
+                    <div class="title">
+                      {title}
+                      <div className="hover-comment">
+                        <svg-icon><src href="../_icons/si-glyph-bubble-message.svg" /></svg-icon>
+                      </div>
+                    </div>
                     <div class="category">{category}</div>
                   </div>
                 </td>
-                <td>
-                  <div className="hover-comment">
-                    <svg-icon><src href="../_icons/si-glyph-bubble-message.svg" /></svg-icon>
-                  </div>
-                </td>
-                <td>
+                <td className="item_project">
                   <div class="third-div">
-                    <div>
-                      {project}
-                    </div>
+                    {project}
                   </div>
                 </td>
-                <td>
+                <td className="item_edit">
                   <div className="hover-edit">
                     <svg-icon><src href="../_icons/si-glyph-pencil.svg" /></svg-icon>
                   </div>

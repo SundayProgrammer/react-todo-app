@@ -17,16 +17,17 @@
 }
 
 .second-div {
-  width: 60%;
+  /* width: 60%; */
 }
 
 .third-div {
-  width: 8%;
   font-weight: bolder;
 }
 
 .item_table {
   width: 100%;
+  text-align: left;
+  vertical-align: middle;
 }
 
 .hover-class .hover-comment {
@@ -39,7 +40,23 @@
     width: 3em;
 }
 
-.svg-icon {
+svg-icon {
   width: 16px;
   height: 16px;
+}
+
+.item_priority {
+  width: 1em;
+}
+
+.item_title_category_comment {
+
+}
+
+.item_project {
+  width: 8em;
+}
+
+.item_edit {
+  width: 2em;
 }

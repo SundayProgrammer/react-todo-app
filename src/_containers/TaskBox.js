@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Task } from '../_components';
 import { Container } from 'reactstrap';
+import './TaskBox.css';
 
 class TaskBox extends Component {
   constructor(props) {
@@ -49,8 +50,7 @@ class TaskBox extends Component {
         var presentTasksList = presentTasks.map(day => {
           if (day.length) {
             return (
-              <ul className="present_task_list"
-                style={{'list-style-type': 'none'}}>
+              <ul className="present_task_list">
                 { day.map(task => {
                     return (
                       <li className="task_item">
@@ -77,8 +77,7 @@ class TaskBox extends Component {
         var overdueTasksList = overdueTasks.map(day => {
           if (day.length) {
             return (
-              <ul className="present_task_list"
-                style={{'list-style-type': 'none'}}>
+              <ul className="present_task_list">
                 { day.map(task => {
                     return (
                       <li className="task_item">
@@ -110,8 +109,7 @@ class TaskBox extends Component {
                 <div class="row">
                   <h3>{title}</h3>
                 </div>
-                <ul className="future_task_list"
-                  style={{'list-style-type': 'none'}}>
+                <ul className="future_task_list">
                   { day.map(task => {
                       return (
                         <li className="task_item">

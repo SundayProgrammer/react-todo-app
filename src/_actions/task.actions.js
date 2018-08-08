@@ -2,9 +2,8 @@ import { tasksConstants } from '../_constants';
 import { tasksService } from '../_services';
 
 export const taskActions = {
-  createTask,
-  getTasks,
-  getClassifiers,
+  create,
+  get,
   update,
   delete: _delete
 };
@@ -15,7 +14,7 @@ export const taskActions = {
  * local tasks list created
  */
 
-function createTask(task, history) {
+function create(task, history) {
   return dispatch => {
     dispatch(request({ task.title.substr(0,10) }));
 
@@ -47,7 +46,7 @@ function createTask(task, history) {
  * Function fetches tasks from different scopes specified by type.
  * 'constraints' argument if defined cares scope URI
  */
-function getTasks(type, constraints) {
+function get(type, constraints) {
   return dispatch => {
     dispatch(request({ type }));
 

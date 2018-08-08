@@ -2,10 +2,13 @@ import { categoryConstants, projectConstants } from './_constants';
 import { tasksService } from './_services';
 
 export const classifiersActions = {
-
+  create,
+  get,
+  update,
+  delete: _delete
 };
 
-function createClassifier(type, objectToCreate, history) {
+function create(type, objectToCreate, history) {
   return dispatch => {
     dispatch(request({ type }));
 
@@ -41,7 +44,7 @@ function createClassifier(type, objectToCreate, history) {
   }
 }
 
-function getClassifiers(type) {
+function get(type) {
   return dispatch => {
     dispatch(request({ type }));
 

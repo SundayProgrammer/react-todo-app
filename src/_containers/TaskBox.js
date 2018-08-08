@@ -49,13 +49,16 @@ class TaskBox extends Component {
         var presentTasksList = presentTasks.map(day => {
           if (day.length) {
             return (
-              <div>
+              <ul className="present_task_list"
+                style={{'list-style-type': 'none'}}>
                 { day.map(task => {
                     return (
-                      <Task task={task} />
+                      <li className="task_item">
+                        <Task task={task} />
+                      </li>
                     );
                 })}
-              </div>
+              </ul>
             );
           } else {
             return;
@@ -63,7 +66,7 @@ class TaskBox extends Component {
         });
 
         var presentList = (
-          <div>
+          <div className="task_group">
             <h3>{presentTitle}</h3>
             {presentTasksList}
           </div>
@@ -74,13 +77,16 @@ class TaskBox extends Component {
         var overdueTasksList = overdueTasks.map(day => {
           if (day.length) {
             return (
-              <div>
+              <ul className="present_task_list"
+                style={{'list-style-type': 'none'}}>
                 { day.map(task => {
                     return (
-                      <Task task={task} />
+                      <li className="task_item">
+                        <Task task={task} />
+                      </li>
                     );
                 })}
-              </div>
+              </ul>
             );
           } else {
             return;
@@ -90,8 +96,6 @@ class TaskBox extends Component {
         var overdueList = (
           <div>
             <h3>{overdueTitle}</h3>
-            <div class="row">
-            </div>
             {overdueTasksList}
           </div>
         );
@@ -106,13 +110,16 @@ class TaskBox extends Component {
                 <div class="row">
                   <h3>{title}</h3>
                 </div>
-                <div>
+                <ul className="future_task_list"
+                  style={{'list-style-type': 'none'}}>
                   { day.map(task => {
                       return (
-                        <Task task={task} />
+                        <li className="task_item">
+                          <Task task={task} />
+                        </li>
                       );
                   })}
-                </div>
+                </ul>
               </div>
             );
           } else {
@@ -147,7 +154,6 @@ class TaskBox extends Component {
     return (
       <div>
         <Container>
-          <h3>{}</h3>
           <div>
             {taskList()}
           </div>

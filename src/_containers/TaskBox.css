@@ -1,0 +1,16 @@
+.present-task-list .overdue-task-list
+.future-task-list {
+  list-style-type: none;
+}
+
+.task_item {
+  list-style-type: none;
+}
+
+ul {
+  list-style-type: none;
+}
+
+li {
+  list-style-type: none;
+}

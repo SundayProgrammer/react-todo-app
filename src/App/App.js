@@ -19,6 +19,7 @@ export class App extends Component {
           <UnauthenticatedRoute path="/signup" exact component={Registration} />
           <UnauthenticatedRoute path="/login" exact component={Login} />
           <AuthenticatedRoute component={Tasks} exact path="/tasks" />
+          <UnauthenticatedRoute component={Home} />
         </Switch>
       </Router>
     );

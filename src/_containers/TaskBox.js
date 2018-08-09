@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Task } from '../_components';
 import { Container } from 'reactstrap';
 import './TaskBox.css';
@@ -50,15 +50,15 @@ class TaskBox extends Component {
         var presentTasksList = presentTasks.map(day => {
           if (day.length) {
             return (
-              <ul className="present_task_list">
+              <Fragment>
                 { day.map(task => {
                     return (
-                      <li className="task_item">
+                      <li className="task_item"  key={task.id} >
                         <Task task={task} />
                       </li>
                     );
                 })}
-              </ul>
+              </Fragment>
             );
           } else {
             return;
@@ -68,7 +68,9 @@ class TaskBox extends Component {
         var presentList = (
           <div className="task_group">
             <h3>{presentTitle}</h3>
-            {presentTasksList}
+            <ul className="present_task_list">
+              {presentTasksList}
+            </ul>
           </div>
         );
       }
@@ -77,15 +79,15 @@ class TaskBox extends Component {
         var overdueTasksList = overdueTasks.map(day => {
           if (day.length) {
             return (
-              <ul className="present_task_list">
+              <Fragment>
                 { day.map(task => {
                     return (
-                      <li className="task_item">
+                      <li className="task_item"  key={task.id} >
                         <Task task={task} />
                       </li>
                     );
                 })}
-              </ul>
+              </Fragment>
             );
           } else {
             return;
@@ -95,7 +97,9 @@ class TaskBox extends Component {
         var overdueList = (
           <div>
             <h3>{overdueTitle}</h3>
-            {overdueTasksList}
+            <ul className="overdue_task_list">
+              {overdueTasksList}
+            </ul>
           </div>
         );
       }
@@ -112,7 +116,7 @@ class TaskBox extends Component {
                 <ul className="future_task_list">
                   { day.map(task => {
                       return (
-                        <li className="task_item">
+                        <li className="task_item" key={task.id} >
                           <Task task={task} />
                         </li>
                       );

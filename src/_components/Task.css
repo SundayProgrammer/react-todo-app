@@ -30,20 +30,26 @@
   vertical-align: middle;
 }
 
-.hover-class .hover-comment {
+.hover-class .hover-item {
     visibility: hidden;
-    width: 3em;
+    width: 20px;
+    height: 18px;
 }
 
-.hover-class:hover .hover-comment {
+.hover-class:hover .hover-item {
     visibility: visible;
-    width: 3em;
+    width: 20px;
+    height: 18px;
 }
 
-svg-icon {
+.hover-item:hover {
+  opacity: 0.6;
+}
+
+/* svg-icon {
   width: 16px;
   height: 16px;
-}
+} */
 
 .item_priority {
   width: 1em;

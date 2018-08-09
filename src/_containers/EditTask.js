@@ -20,11 +20,11 @@ class EditTask extends Component {
 
     if (this.props.task) {
       this.state = {
-        ...this.props.task
+        task: this.props.task
       };
     } else {
       this.state = {
-        ...this.emptyTask()
+        task: this.emptyTask()
       };
     }
   }
@@ -42,20 +42,29 @@ class EditTask extends Component {
   }
 
   handleChange = (event) => {
+    const { name, value } = event.target;
+    let task = this.state.task;
+    task[name] = value;
+    this.setState({
+      task
+    });
+  }
+
+  handleSubmit = (event) => {
 
   }
 
   render() {
-    const { title, priority, project, category, comment, date } = this.state;
+    const { title, priority, project, category, comment, date } = this.state.task;
 
     return (
       <div>
         <Container>
-          <Form>
+          <Form onSubmit={this.handleSubmit}>
             <div className="submit-buttons">
               <FormGroup>
-                <Button color="secondary" type="submit">Save</Button>{' '}
-                <Button outline color="secondary" tag={Link} to="/tasks">Cancel</Button>
+                <Button color="primary" type="submit">Save</Button>{' '}
+                <Button outline color="primary" type="submit">Cancel</Button>
               </FormGroup>
             </div>
             <div className="row">
@@ -69,7 +78,7 @@ class EditTask extends Component {
               <FormGroup>
                 <Label for="category">Category</Label>
                 <Input type="text" name="category" id="category" value={category || ''}
-                       onChange={this.handleChange} autoComplete="category"/>
+                       onChange={this.handleChange} />
               </FormGroup>
               <FormGroup>
                 <Label for="project">Project</Label>
@@ -77,11 +86,11 @@ class EditTask extends Component {
                        onChange={this.handleChange} autoComplete="project"/>
               </FormGroup>
               <div className="date-priority-pickers">
-                <DatePicker
+                {/* <DatePicker
                   dateFormat="YYYY-MM-DD"
                   selected={this.state}
                   onChange={this.handleChange}
-                />
+                /> */}
                 <div>
                   Priority picker
                 </div>

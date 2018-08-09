@@ -51,7 +51,8 @@ class EditTask extends Component {
   }
 
   handleSubmit = (event) => {
-
+    event.preventDefault();
+    console.log(event.target);
   }
 
   render() {
@@ -60,7 +61,7 @@ class EditTask extends Component {
     return (
       <div>
         <Container>
-          <Form onSubmit={this.handleSubmit}>
+          <Form onSubmit={this.handleSubmit} name="task_edit_form">
             <div className="submit-buttons">
               <FormGroup>
                 <Button color="primary" type="submit">Save</Button>{' '}

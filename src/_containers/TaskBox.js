@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Task } from '../_components';
+import { Task } from './Task';
 import { Container } from 'reactstrap';
 import './TaskBox.css';
 

@@ -16,6 +16,10 @@
   margin-right: 10px;
 }
 
+.item_priority:hover {
+  opacity: 0.6;
+}
+
 .second-div {
   /* width: 60%; */
 }

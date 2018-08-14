@@ -1,20 +1,29 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Container } from 'reactstrap';
 import { AppNavbar } from '../_components';
 import { TaskBox } from '../_containers';
+import { taskActions } from '../_actions';
 import './Tasks.css';
 
 class Tasks extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      tasksFilter: 'daily'      // 'weekly'
+    }
   }
 
   handleFilterClick = (event) => {
+    event.preventDefault();
 
+    this.setState({ tasksFilter: event.target.name })
   }
 
   componentDidMount() {
-    
+    const { dispatch, history } = this.props;
+    dispatch(taskActions.getTasks('daily', history));
   }
 
   render() {
@@ -22,114 +31,29 @@ class Tasks extends Component {
       <div>
         <AppNavbar />
         <div className="sidebar_holder">
-            <div className="list_holder">
-              <ul>
-                <li className="filter" onClick={this.handleFilterClick}>
-                  Today
-                </li>
-                <li className="filter" onClick={this.handleFilterClick}>
-                  Next 7 days
-                </li>
-              </ul>
-            </div>
+          <div className="list_holder">
+            <ul>
+              <li className="filter" name="daily" onClick={this.handleFilterClick}>
+                Today
+              </li>
+              <li className="filter" name="weekly" onClick={this.handleFilterClick}>
+                Next 7 days
+              </li>
+            </ul>
+          </div>
         </div>
         <TaskBox tasks={this.daily} />
       </div>
     )
   }
+}
 
-  daily = [
-      {
-        date: '2018-08-07',
-        tasks: [
-          {
-            id: 123,
-            title: 'Default task which you do every noon',
-            priority: 2,
-            project: 'Project',
-            category: 'Category',
-            comment: 'This is comment',
-            date: '2018-08-07',
-            state: true
-          },
-          {
-            id: 124,
-            title: 'Default task which you do every enening',
-            priority: 0,
-            project: 'Project2',
-            category: 'Category',
-            comment: 'This is a little bit longer comment',
-            date: '2018-08-07',
-            state: true
-          }
-        ]
-      },
-      {
-        date: '2018-08-06',
-        tasks: [
-          {
-            id: 123,
-            title: 'Default task which you do every noon',
-            priority: 2,
-            project: 'Project',
-            category: 'Category',
-            comment: 'This is comment',
-            date: '2018-08-06',
-            state: true
-          },
-          {
-            id: 124,
-            title: 'Default task which you do every enening',
-            priority: 0,
-            project: 'Project2',
-            category: 'Category',
-            comment: 'This is a little bit longer comment',
-            date: '2018-08-06',
-            state: true
-          }
-        ]
-      },
-      {
-        date: '2018-08-05',
-        tasks: [
-          {
-            id: 125,
-            title: 'Default task which you do every morning',
-            priority: 1,
-            project: 'Project',
-            category: 'Category',
-            comment: 'This is comment',
-            date: '2018-08-05',
-            state: true
-          }
-        ]
-      },
-      {
-        date: '2018-08-04',
-        tasks: [
-          {
-            id: 126,
-            title: 'Default task 1',
-            priority: 1,
-            project: 'Project',
-            category: 'Category',
-            comment: 'This is comment',
-            date: '2018-08-04',
-            state: true
-          },
-          {
-            id: 122,
-            title: 'Default task for Friday',
-            priority: 0,
-            project: 'Project 3',
-            category: 'Bike riding',
-            comment: 'This is comment unvisible',
-            date: '2018-08-04',
-            state: true
-          }
-        ]
-      }
-    ]
+const mapStateToProps = state => {
+  const { isFetching } = state;
+
+  return {
+    isFetching
+  }
 }
 
 export { Tasks };

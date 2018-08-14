@@ -1,4 +1,96 @@
 let users = JSON.parse(localStorage.getItem('users')) || [];
+let dailyTasks = [
+    {
+      date: '2018-08-07',
+      tasks: [
+        {
+          id: 123,
+          title: 'Default task which you do every noon',
+          priority: 2,
+          project: 'Project',
+          category: 'Category',
+          comment: 'This is comment',
+          date: '2018-08-07',
+          state: true
+        },
+        {
+          id: 124,
+          title: 'Default task which you do every enening',
+          priority: 0,
+          project: 'Project2',
+          category: 'Category',
+          comment: 'This is a little bit longer comment',
+          date: '2018-08-07',
+          state: true
+        }
+      ]
+    },
+    {
+      date: '2018-08-06',
+      tasks: [
+        {
+          id: 123,
+          title: 'Default task which you do every noon',
+          priority: 2,
+          project: 'Project',
+          category: 'Category',
+          comment: 'This is comment',
+          date: '2018-08-06',
+          state: true
+        },
+        {
+          id: 124,
+          title: 'Default task which you do every enening',
+          priority: 0,
+          project: 'Project2',
+          category: 'Category',
+          comment: 'This is a little bit longer comment',
+          date: '2018-08-06',
+          state: true
+        }
+      ]
+    },
+    {
+      date: '2018-08-05',
+      tasks: [
+        {
+          id: 125,
+          title: 'Default task which you do every morning',
+          priority: 1,
+          project: 'Project',
+          category: 'Category',
+          comment: 'This is comment',
+          date: '2018-08-05',
+          state: true
+        }
+      ]
+    },
+    {
+      date: '2018-08-04',
+      tasks: [
+        {
+          id: 126,
+          title: 'Default task 1',
+          priority: 1,
+          project: 'Project',
+          category: 'Category',
+          comment: 'This is comment',
+          date: '2018-08-04',
+          state: true
+        },
+        {
+          id: 122,
+          title: 'Default task for Friday',
+          priority: 0,
+          project: 'Project 3',
+          category: 'Bike riding',
+          comment: 'This is comment unvisible',
+          date: '2018-08-04',
+          state: true
+        }
+      ]
+    }
+  ]
 
 export function configureFakeBackend() {
   let realFetch = window.fetch;
@@ -56,7 +148,7 @@ export function configureFakeBackend() {
         }
 
         if (url.endsWith('/api/users/register') && opts.method === 'POST') {
-          let newUser =JSON.parse(opts.body);
+          let newUser = JSON.parse(opts.body);
 
           let duplicatedUser = users.filter(user => { return user.email === newUser.email; }).length;
           if (duplicatedUser) {
@@ -92,6 +184,20 @@ export function configureFakeBackend() {
           }
 
           return;
+        }
+
+        if (url.endsWith('/api/tasks/daily') && opts.method === 'GET') {
+          if (opts.headers && opts.headers.Authorization === 'Token fake-jwt-token') {
+            let responseJson = {
+              token: 'fake-jwt-token',
+              tasks: dailyTasks
+            };
+
+            resolve({
+              ok: true,
+              text: () => Promise.resolve(JSON.stringify(responseJson))
+            });
+          }
         }
 
         realFetch(url, opts).then(response => resolve(response));

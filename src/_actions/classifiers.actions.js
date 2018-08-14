@@ -1,5 +1,5 @@
-import { categoryConstants, projectConstants } from './_constants';
-import { tasksService } from './_services';
+import { categoryConstants, projectConstants } from '../_constants';
+import { tasksService } from '../_services';
 
 export const classifiersActions = {
   create,
@@ -25,22 +25,22 @@ function create(type, objectToCreate, history) {
       );
   }
 
-  request = (type) => {
+  function request(type) {
     if (type === 'project') {
       return { type: projectConstants.CREATE_REQUEST, type };
     } else {
       return { type: categoryConstants.CREATE_REQUEST, type };
     }
   }
-  success = (type) => {
+  function success(type) {
     if (type === 'project') {
       return { type: projectConstants.CREATE_SUCCESS, type };
     } else {
       return { type: categoryConstants.CREATE_SUCCESS, type };
     }
   }
-  failure = (error) => {
-    return { type: tasksConstants.CREATE_FAILURE, error };
+  function failure(error) {
+    return { type: projectConstants.CREATE_FAILURE, error };
   }
 }
 
@@ -59,26 +59,26 @@ function get(type) {
       );
   }
 
-  request = (type) => {
+  function request(type) {
     if (type === 'project') {
       return { type: projectConstants.GET_REQUEST, type };
     } else {
       return { type: categoryConstants.GET_REQUEST, type };
     }
   }
-  success = (type) => {
+  function success(type) {
     if (type === 'project') {
       return { type: projectConstants.GET_SUCCESS, type };
     } else {
       return { type: categoryConstants.GET_SUCCESS, type };
     }
   }
-  failure = (error) => {
-    return { type: tasksConstants.GET_FAILURE, error };
+  function failure(error) {
+    return { type: projectConstants.GET_FAILURE, error };
   }
 }
 
-function update(type, updateObject) {
+function update(type, updateObject, history) {
   return dispatch => {
     dispatch(request({ type }));
 
@@ -95,26 +95,26 @@ function update(type, updateObject) {
       );
   }
 
-  request = (type) => {
+  function request(type) {
     if (type === 'project') {
       return { type: projectConstants.UPDATE_REQUEST, type };
     } else {
       return { type: categoryConstants.UPDATE_REQUEST, type };
     }
   }
-  success = (type) => {
+  function success(type) {
     if (type === 'project') {
       return { type: projectConstants.UPDATE_SUCCESS, type };
     } else {
       return { type: categoryConstants.UPDATE_SUCCESS, type };
     }
   }
-  failure = (error) => {
-    return { type: tasksConstants.UPDATE_FAILURE, error };
+  function failure(error) {
+    return { type: projectConstants.UPDATE_FAILURE, error };
   }
 }
 
-function _delete(type, id) {
+function _delete(type, id, history) {
   return dispatch => {
     dispatch(request({ type }));
 
@@ -131,21 +131,21 @@ function _delete(type, id) {
       );
   }
 
-  request = (type) => {
+  function request(type) {
     if (type === 'project') {
       return { type: projectConstants.DELETE_REQUEST, type };
     } else {
       return { type: categoryConstants.DELETE_REQUEST, type };
     }
   }
-  success = (type) => {
+  function success(type) {
     if (type === 'project') {
       return { type: projectConstants.DELETE_SUCCESS, type };
     } else {
       return { type: categoryConstants.DELETE_SUCCESS, type };
     }
   }
-  failure = (error) => {
-    return { type: tasksConstants.DELETE_FAILURE, error };
+  function failure(error) {
+    return { type: projectConstants.DELETE_FAILURE, error };
   }
 }

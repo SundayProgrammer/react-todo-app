@@ -45,7 +45,7 @@ function getAll(type, constraints) {
     headers: authHeader()
   };
 
-  if (typeof constraints.id === 'undefined') {
+  if (typeof constraints === 'undefined') {
       return fetch(`/api/tasks/${type}`, requestOptions).then(handleResponse);
   } else {
     return fetch(`/api/tasks/${type}/${constraints.id}`, requestOptions).then(handleResponse);

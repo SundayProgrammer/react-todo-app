@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Container } from 'reactstrap';
 import { AppNavbar } from '../_components';
 import { TaskBox } from '../_containers';
@@ -23,10 +24,12 @@ class Tasks extends Component {
 
   componentDidMount() {
     const { dispatch, history } = this.props;
-    dispatch(taskActions.getTasks('daily', history));
+    dispatch(taskActions.getTasks('daily'));
   }
 
   render() {
+    const { isFetching } = this.props;
+
     return (
       <div>
         <AppNavbar />
@@ -42,9 +45,16 @@ class Tasks extends Component {
             </ul>
           </div>
         </div>
-        <TaskBox tasks={this.daily} />
+        { isFetching
+          ? <TaskBox tasks={[]} />
+          : <p> Loading... </p>
+        }
       </div>
     )
+  }
+
+  static propTypes = {
+    isFetching: PropTypes.bool.isRequired
   }
 }
 
@@ -56,4 +66,6 @@ const mapStateToProps = state => {
   }
 }
 
-export { Tasks };
+const connectedTasks = connect(mapStateToProps)(Tasks);
+
+export { connectedTasks as Tasks };

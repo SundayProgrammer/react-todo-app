@@ -12,6 +12,7 @@ class Tasks extends Component {
     super(props);
 
     this.state = {
+      isFetching: false,
       tasksFilter: 'daily'      // 'weekly'
     }
   }
@@ -59,7 +60,7 @@ class Tasks extends Component {
 }
 
 const mapStateToProps = state => {
-  const { isFetching } = state;
+  const { isFetching } = { isFetching: true };
 
   return {
     isFetching

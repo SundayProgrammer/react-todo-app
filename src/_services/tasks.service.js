@@ -1,5 +1,6 @@
 import { authHeader } from '../_helpers';
 import { userService } from './user.service';
+import { config } from './config';
 
 export const tasksService = {
   createEntity,
@@ -46,9 +47,9 @@ function getAll(type, constraints) {
   };
 
   if (typeof constraints === 'undefined') {
-      return fetch(`/api/tasks/${type}`, requestOptions).then(handleResponse);
+    return fetch(`${config.urlDomain}/api/tasks/${type}`, requestOptions);
   } else {
-    return fetch(`/api/tasks/${type}/${constraints.id}`, requestOptions).then(handleResponse);
+    return fetch(`${config.urlDomain}/api/tasks/${type}/${constraints.id}`, requestOptions);
   }
 
 }

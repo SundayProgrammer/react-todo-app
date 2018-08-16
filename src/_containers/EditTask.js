@@ -18,15 +18,13 @@ class EditTask extends Component {
   constructor(props) {
     super(props);
 
-    if (this.props.task) {
-      this.state = {
-        task: this.props.task
-      };
-    } else {
-      this.state = {
-        task: this.emptyTask()
-      };
-    }
+    this.state = {
+      task: (this.props.task
+              ? this.props.task
+              : this.emptyTask()
+            ),
+      initDate: moment().format("YYYY-MM-DD")
+    };
   }
 
   emptyTask = () => {
@@ -50,6 +48,12 @@ class EditTask extends Component {
     });
   }
 
+  handleDateChange = (date) => {
+    this.setState({
+      initDate: date
+    });
+  }
+
   handleSubmit = (event) => {
     event.preventDefault();
     console.log(event.target);
@@ -57,6 +61,7 @@ class EditTask extends Component {
 
   render() {
     const { title, priority, project, category, comment, date } = this.state.task;
+    const { initDate } = this.state;
 
     return (
       <div>
@@ -87,11 +92,11 @@ class EditTask extends Component {
                        onChange={this.handleChange} autoComplete="project"/>
               </FormGroup>
               <div className="date-priority-pickers">
-                {/* <DatePicker
+                <DatePicker
                   dateFormat="YYYY-MM-DD"
-                  selected={this.state}
-                  onChange={this.handleChange}
-                /> */}
+                  selected={initDate}
+                  onChange={this.handleDateChange}
+                />
                 <div>
                   Priority picker
                 </div>

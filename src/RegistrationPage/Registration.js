@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { AppNavbar } from '../_components';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { AppNavbar } from "../_components";
 import {
   Button,
   Container,
@@ -10,17 +10,16 @@ import {
   FormGroup,
   Input,
   Label
-} from 'reactstrap';
-import { userActions } from '../_actions';
-import './Registration.css';
+} from "reactstrap";
+import { userActions } from "../_actions";
+import "./Registration.css";
 
 class Registration extends Component {
-
   emptyForm = {
-    email: '',
-    password: '',
+    email: "",
+    password: "",
     agreement: false
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -28,7 +27,7 @@ class Registration extends Component {
     this.state = {
       user: this.emptyForm,
       submitted: false
-    }
+    };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -40,24 +39,24 @@ class Registration extends Component {
     const { agreement } = this.state.user;
     const { user } = this.state;
     const { dispatch } = this.props;
-    this.setState({submitted: true});
+    this.setState({ submitted: true });
 
-    if ((email && password && agreement)) {
+    if (email && password && agreement) {
       dispatch(userActions.register(user, this.props.history));
     }
   }
 
   handleChange(event) {
     const { name, value } = event.target;
-    let user = {...this.state.user};
+    let user = { ...this.state.user };
 
-    if (name !== 'agreement') {
+    if (name !== "agreement") {
       const { value } = event.target;
       user[name] = value;
     } else {
       user[name] = !this.state.user.agreement;
     }
-    this.setState({user});
+    this.setState({ user });
   }
 
   render() {
@@ -71,25 +70,53 @@ class Registration extends Component {
           <Form onSubmit={this.handleSubmit}>
             <FormGroup>
               <Label for="email">EMAIL ADDRESS</Label>
-              <Input type="text" name="email" id="email" value={user.email || ''}
-                     onChange={this.handleChange} invalid={submitted && !user.email}/>
-              {submitted && !user.email && <FormFeedback>Email is required</FormFeedback>}
+              <Input
+                type="text"
+                name="email"
+                id="email"
+                value={user.email || ""}
+                onChange={this.handleChange}
+                invalid={submitted && !user.email}
+              />
+              {submitted &&
+                !user.email && <FormFeedback>Email is required</FormFeedback>}
             </FormGroup>
             <FormGroup>
               <Label for="password">PASSWORD</Label>
-              <Input type="password" name="password" id="password" value={user.password || ''}
-                     onChange={this.handleChange} invalid={submitted && !user.password}/>
-              {submitted && !user.password && <FormFeedback>Password is required</FormFeedback>}
+              <Input
+                type="password"
+                name="password"
+                id="password"
+                value={user.password || ""}
+                onChange={this.handleChange}
+                invalid={submitted && !user.password}
+              />
+              {submitted &&
+                !user.password && (
+                  <FormFeedback>Password is required</FormFeedback>
+                )}
             </FormGroup>
             <FormGroup check>
-              <Label for="agreement"></Label>
-              <Input type="checkbox" name="agreement" onChange={this.handleChange} id="agreement" checked={user.agreement} invalid={submitted && !user.agreement}/>{' '}
+              <Label for="agreement" />
+              <Input
+                type="checkbox"
+                name="agreement"
+                onChange={this.handleChange}
+                id="agreement"
+                checked={user.agreement}
+                invalid={submitted && !user.agreement}
+              />{" "}
               I agree to the terms of service and privacy policy
-              {submitted && !user.agreement && <FormFeedback>Agreement is required</FormFeedback>}
+              {submitted &&
+                !user.agreement && (
+                  <FormFeedback>Agreement is required</FormFeedback>
+                )}
             </FormGroup>
             <br />
             <FormGroup>
-              <Button color="secondary" type="submit">Submit</Button>
+              <Button color="secondary" type="submit">
+                Submit
+              </Button>
             </FormGroup>
           </Form>
         </Container>
@@ -105,5 +132,7 @@ function mapStateToProps(state) {
   };
 }
 
-const connectedRegistrationPage = withRouter(connect(mapStateToProps)(Registration));
+const connectedRegistrationPage = withRouter(
+  connect(mapStateToProps)(Registration)
+);
 export { connectedRegistrationPage as Registration };

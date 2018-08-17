@@ -1,5 +1,5 @@
-import { tasksConstants } from '../_constants';
-import { tasksService } from '../_services';
+import { tasksConstants } from "../_constants";
+import { tasksService } from "../_services";
 
 export const taskActions = {
   create,
@@ -16,21 +16,20 @@ export const taskActions = {
 
 function create(task, history) {
   return dispatch => {
-    const taskTitle = task.title.substr(0,10)
+    const taskTitle = task.title.substr(0, 10);
     dispatch(request({ taskTitle }));
 
-    tasksService.createEntity('task', task)
-      .then(
-        taskTitle => {
-          dispatch(success(taskTitle));
-          history.push('/tasks');
-        },
-        error => {
-          dispatch(failure(error));
-          history.push('/tasks');
-        }
-      );
-  }
+    tasksService.createEntity("task", task).then(
+      taskTitle => {
+        dispatch(success(taskTitle));
+        history.push("/tasks");
+      },
+      error => {
+        dispatch(failure(error));
+        history.push("/tasks");
+      }
+    );
+  };
 
   function request(type) {
     return { type: tasksConstants.CREATE_REQUEST, type };
@@ -51,16 +50,15 @@ function getTasks(type, constraints) {
   return dispatch => {
     dispatch(request({ type }));
 
-    tasksService.getAll(type, constraints)
-      .then(
-        json => {
-          dispatch(success(json, type));
-        },
-        error => {
-          dispatch(failure(error));
-        }
-      );
-  }
+    tasksService.getAll(type, constraints).then(
+      json => {
+        dispatch(success(json, type));
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
+  };
 
   function success(json, type) {
     sessionStorage.setItem(type, JSON.stringify(json.tasks));
@@ -68,7 +66,7 @@ function getTasks(type, constraints) {
       type: tasksConstants.GET_SUCCESS,
       filter: type,
       tasks: json.tasks
-    }
+    };
   }
   function request(type) {
     return { type: tasksConstants.GET_REQUEST, filter: type };
@@ -82,18 +80,17 @@ function update(type, updateObject, history) {
   return dispatch => {
     dispatch(request({ type }));
 
-    tasksService.update(type, updateObject)
-      .then(
-        type => {
-          dispatch(success(type));
-          history.push('/tasks');
-        },
-        error => {
-          dispatch(failure(error));
-          history.push('/tasks');
-        }
-      );
-  }
+    tasksService.update(type, updateObject).then(
+      type => {
+        dispatch(success(type));
+        history.push("/tasks");
+      },
+      error => {
+        dispatch(failure(error));
+        history.push("/tasks");
+      }
+    );
+  };
 
   function request(type) {
     return { type: tasksConstants.UPDATE_REQUEST, type };
@@ -110,18 +107,17 @@ function _delete(type, id, history) {
   return dispatch => {
     dispatch(request({ type }));
 
-    tasksService.delete(type, id)
-      .then(
-        type => {
-          dispatch(success(type));
-          history.push('/tasks');
-        },
-        error => {
-          dispatch(failure(error));
-          history.push('/tasks');
-        }
-      );
-  }
+    tasksService.delete(type, id).then(
+      type => {
+        dispatch(success(type));
+        history.push("/tasks");
+      },
+      error => {
+        dispatch(failure(error));
+        history.push("/tasks");
+      }
+    );
+  };
 
   function request(type) {
     return { type: tasksConstants.DELETE_REQUEST, type };

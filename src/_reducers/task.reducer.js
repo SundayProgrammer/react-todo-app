@@ -1,14 +1,14 @@
-import { combineReducers } from 'redux';
-import { tasksConstants } from '../_constants';
+import { combineReducers } from "redux";
+import { tasksConstants } from "../_constants";
 
-export const selectedFilter = (state = 'daily', action) => {
+export const selectedFilter = (state = "daily", action) => {
   switch (action.type) {
     case tasksConstants.SELECT_FILTER:
       return action.filter;
     default:
       return state;
   }
-}
+};
 
 export const tasksByFilter = (state = {}, action) => {
   switch (action.type) {
@@ -25,14 +25,16 @@ export const tasksByFilter = (state = {}, action) => {
     default:
       return state;
   }
-}
+};
 
 const tasks = (
   state = {
     isFetching: false,
     isEdited: false,
     items: []
-  }, action) => {
+  },
+  action
+) => {
   switch (action.type) {
     case tasksConstants.GET_REQUEST:
       return {
@@ -57,7 +59,7 @@ const tasks = (
         ...state,
         isFetching: false,
         isEdited: false
-      }
+      };
     case tasksConstants.GET_FAILURE:
     case tasksConstants.CREATE_REQUEST:
     case tasksConstants.CREATE_SUCCESS:
@@ -69,4 +71,4 @@ const tasks = (
     default:
       return state;
   }
-}
+};

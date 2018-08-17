@@ -1,5 +1,4 @@
-.present-task-list .overdue-task-list
-.future-task-list {
+.present-task-list .overdue-task-list .future-task-list {
   list-style-type: none;
 }
 

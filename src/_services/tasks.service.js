@@ -1,6 +1,6 @@
-import { authHeader } from '../_helpers';
-import { userService } from './user.service';
-import { config } from './config';
+import { authHeader } from "../_helpers";
+import { userService } from "./user.service";
+import { config } from "./config";
 
 export const tasksService = {
   createEntity,
@@ -8,7 +8,7 @@ export const tasksService = {
   getClassifiers,
   update,
   delete: _delete
-}
+};
 
 /*
  *  POST
@@ -20,8 +20,8 @@ export const tasksService = {
  */
 function createEntity(type, objectToCreate) {
   const requestOptions = {
-    method: 'POST',
-    headers: { ...authHeader(), 'Content-Type': 'application/json' },
+    method: "POST",
+    headers: { ...authHeader(), "Content-Type": "application/json" },
     body: JSON.stringify(objectToCreate)
   };
 
@@ -42,23 +42,25 @@ function createEntity(type, objectToCreate) {
  */
 function getAll(type, constraints) {
   const requestOptions = {
-    method: 'GET',
+    method: "GET",
     headers: authHeader()
   };
 
-  if (typeof constraints === 'undefined') {
-    return fetch(`${config.urlDomain}/api/tasks/${type}`, requestOptions)
-                  .then(handleResponse);
+  if (typeof constraints === "undefined") {
+    return fetch(`${config.urlDomain}/api/tasks/${type}`, requestOptions).then(
+      handleResponse
+    );
   } else {
-    return fetch(`${config.urlDomain}/api/tasks/${type}/${constraints.id}`, requestOptions)
-                  .then(handleResponse);
+    return fetch(
+      `${config.urlDomain}/api/tasks/${type}/${constraints.id}`,
+      requestOptions
+    ).then(handleResponse);
   }
-
 }
 
 function getClassifiers(type) {
   const requestOptions = {
-    method: 'GET',
+    method: "GET",
     headers: authHeader()
   };
 
@@ -77,8 +79,8 @@ function getClassifiers(type) {
 
 function update(type, updateObject) {
   const requestOptions = {
-    method: 'PUT',
-    headers: { ...authHeader(), 'Content-Type': 'application/json' },
+    method: "PUT",
+    headers: { ...authHeader(), "Content-Type": "application/json" },
     body: JSON.stringify(updateObject)
   };
 
@@ -96,7 +98,7 @@ function update(type, updateObject) {
 
 function _delete(type, id) {
   const requestOptions = {
-    method: 'DELETE',
+    method: "DELETE",
     headers: authHeader()
   };
 

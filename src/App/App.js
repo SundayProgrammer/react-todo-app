@@ -1,13 +1,10 @@
-import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Switch
-} from 'react-router-dom';
-import { Home } from '../HomePage';
-import { Registration } from '../RegistrationPage';
-import { Login } from '../LoginPage';
-import { Tasks } from '../TasksPage';
-import { AuthenticatedRoute, UnauthenticatedRoute } from '../_components';
+import React, { Component } from "react";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
+import { Home } from "../HomePage";
+import { Registration } from "../RegistrationPage";
+import { Login } from "../LoginPage";
+import { Tasks } from "../TasksPage";
+import { AuthenticatedRoute, UnauthenticatedRoute } from "../_components";
 
 export class App extends Component {
   render() {

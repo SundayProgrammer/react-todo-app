@@ -1,5 +1,5 @@
-import { userConstants } from '../_constants';
-import { userService } from '../_services';
+import { userConstants } from "../_constants";
+import { userService } from "../_services";
 
 export const userActions = {
   login,
@@ -11,16 +11,15 @@ function login(email, password, history) {
   return dispatch => {
     dispatch(request({ email }));
 
-    userService.login(email, password)
-      .then(
-        user => {
-          dispatch(success(user));
-          history.push('/tasks');
-        },
-        error => {
-          dispatch(failure(error));
-        }
-      );
+    userService.login(email, password).then(
+      user => {
+        dispatch(success(user));
+        history.push("/tasks");
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
   };
 
   function request(email) {
@@ -35,25 +34,24 @@ function login(email, password, history) {
 }
 
 function logout(history) {
-    userService.logout();
-    history.push('/');
-    return { type: userConstants.LOGOUT };
+  userService.logout();
+  history.push("/");
+  return { type: userConstants.LOGOUT };
 }
 
 function register(user, history) {
   return dispatch => {
     dispatch(request(user));
 
-    userService.register(user)
-      .then(
-        user => {
-          dispatch(success(user));
-          history.push('/login');
-        },
-        error => {
-          dispatch(failure(error));
-        }
-      )
+    userService.register(user).then(
+      user => {
+        dispatch(success(user));
+        history.push("/login");
+      },
+      error => {
+        dispatch(failure(error));
+      }
+    );
   };
 
   function request(user) {

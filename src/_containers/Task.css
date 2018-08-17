@@ -35,15 +35,15 @@
 }
 
 .hover-class .hover-item {
-    visibility: hidden;
-    width: 20px;
-    height: 18px;
+  visibility: hidden;
+  width: 20px;
+  height: 18px;
 }
 
 .hover-class:hover .hover-item {
-    visibility: visible;
-    width: 20px;
-    height: 18px;
+  visibility: visible;
+  width: 20px;
+  height: 18px;
 }
 
 .hover-item:hover {
@@ -60,7 +60,6 @@
 }
 
 .item_title_category_comment {
-
 }
 
 .item_project {

@@ -1,4 +1,4 @@
-import { authHeader } from '../_helpers';
+import { authHeader } from "../_helpers";
 
 export const userService = {
   login,
@@ -8,34 +8,34 @@ export const userService = {
 
 function login(email, password) {
   const requestOptions = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({email, password})
-  }
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password })
+  };
 
-  return fetch('/api/users/authenticate', requestOptions)
-            .then(handleResponse)
-            .then(user => {
-              if (user.token) {
-                localStorage.setItem('user', JSON.stringify(user));
-              }
+  return fetch("/api/users/authenticate", requestOptions)
+    .then(handleResponse)
+    .then(user => {
+      if (user.token) {
+        localStorage.setItem("user", JSON.stringify(user));
+      }
 
-              return user;
-            });
+      return user;
+    });
 }
 
 function logout() {
-  localStorage.removeItem('user');
+  localStorage.removeItem("user");
 }
 
 function register(user) {
   const requestOptions = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(user)
   };
 
-  return fetch('/api/users/register', requestOptions).then(handleResponse);
+  return fetch("/api/users/register", requestOptions).then(handleResponse);
 }
 
 /*

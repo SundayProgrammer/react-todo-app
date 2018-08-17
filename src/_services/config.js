@@ -1,3 +1,3 @@
 export const config = {
-  urlDomain: 'http://localhost:3000'
-}
+  urlDomain: "http://localhost:3000"
+};

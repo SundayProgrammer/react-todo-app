@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   Container
 } from 'reactstrap';
+import { connect } from 'react-redux';
 import { EditTask } from '../_containers';
 import './Task.css';
 import commentIcon from '../_icons/si-glyph-bubble-message.svg';
@@ -13,7 +14,7 @@ class Task extends Component {
 
     this.state = {
       commentExpanded: false,
-      editExpanded: false
+      isEdited: false
     }
   }
 
@@ -24,9 +25,11 @@ class Task extends Component {
   }
 
   handleEditClick = () => {
-    this.setState({
-      editExpanded: !this.state.editExpanded
-    });
+    if (this.state.isEdited === false) {
+      this.setState({
+        isEdited: !this.state.isEdited
+      });
+    }
   }
 
   render() {
@@ -45,7 +48,7 @@ class Task extends Component {
 
     return (
       <div>
-        { this.state.editExpanded
+        { this.state.isEdited
           ? (
             <EditTask task={this.props.task} />
           )
@@ -90,10 +93,14 @@ class Task extends Component {
   }
 }
 
-// const mapStateToProps = ({state, ownProps}) => {
-//   return {
-//     isEdited:
-//   };
-// }
+const mapStateToProps = state => {
+  const { isEdited } = state;
 
-export { Task };
+  return {
+    isEdited
+  };
+}
+
+const connectedTask = connect(mapStateToProps)(Task);
+
+export { connectedTask as Task };

@@ -45,13 +45,21 @@ const tasks = (
         isFetching: false,
         items: action.tasks
       };
-    case tasksConstants.CREATE_REQUEST:
+    case tasksConstants.EDIT_REQUEST:
       return {
         ...state,
         isFetching: false,
         isEdited: true
       };
+    case tasksConstants.EDIT_SUCCESS:
+    case tasksConstants.EDIT_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        isEdited: false
+      }
     case tasksConstants.GET_FAILURE:
+    case tasksConstants.CREATE_REQUEST:
     case tasksConstants.CREATE_SUCCESS:
     case tasksConstants.CREATE_FAILURE:
       return {

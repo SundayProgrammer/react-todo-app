@@ -8,6 +8,7 @@ import {
   Input,
   Label
 } from 'reactstrap';
+import { taskActions } from '../_actions';
 import { Link } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
@@ -39,6 +40,15 @@ class EditTask extends Component {
     };
   }
 
+  prevTask = this.emptyTask();
+
+  componentDidMount() {
+    this.prevTask = JSON.parse(JSON.stringify(this.props.task
+            ? this.props.task
+            : this.emptyTask()
+          ));
+  }
+
   handleChange = (event) => {
     const { name, value } = event.target;
     let task = this.state.task;
@@ -56,7 +66,13 @@ class EditTask extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log(event.target);
+    const { dispatch } = this.props;
+    if ((JSON.stringify(this.prevTask) !== JSON.stringify(this.state.task))
+          && (event.target.name !== 'cancel')) {
+      dispatch(taskActions.update('task', this.state.task));
+    } else {
+      console.log(event.target);
+    }
   }
 
   render() {
@@ -66,11 +82,11 @@ class EditTask extends Component {
     return (
       <div>
         <Container>
-          <Form onSubmit={this.handleSubmit} name="task_edit_form">
+          <Form method="POST" name="task_edit_form">
             <div className="submit-buttons">
               <FormGroup>
-                <Button color="primary" type="submit">Save</Button>{' '}
-                <Button outline color="primary" type="submit">Cancel</Button>
+                <Button color="primary" onClick={this.handleSubmit} name="save" type="submit">Save</Button>{' '}
+                <Button outline color="primary" onClick={this.handleSubmit} name="cancel" type="submit">Cancel</Button>
               </FormGroup>
             </div>
             <div className="row">
@@ -92,11 +108,11 @@ class EditTask extends Component {
                        onChange={this.handleChange} autoComplete="project"/>
               </FormGroup>
               <div className="date-priority-pickers">
-                <DatePicker
+                {/* <DatePicker
                   dateFormat="YYYY-MM-DD"
                   selected={{initDate}}
                   onChange={this.handleDateChange}
-                />
+                /> */}
                 <div>
                   Priority picker
                 </div>

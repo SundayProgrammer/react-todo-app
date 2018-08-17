@@ -123,7 +123,7 @@ export function configureFakeBackend() {
         }
 
         if (url.endsWith('/users') && opts.method === 'GET') {
-          if (opts.headers && opts.headers.Authorization === 'Token fake-jwt-token') {
+          if (opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token') {
             resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(users)) });
           } else {
             reject('Unauthorised');
@@ -133,7 +133,7 @@ export function configureFakeBackend() {
         }
 
         if (url.match(/\/api\/users\/\d+$/) && opts.method === 'GET') {
-          if (opts.headers && opts.headers.Authorization === 'Token fake-jwt-token') {
+          if (opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token') {
             let urlParts = url.split('/');
             let id = parseInt(urlParts[urlParts.length - 1], 10);
             let matchedUsers = users.filter(user => { return user.id === id; });
@@ -166,7 +166,7 @@ export function configureFakeBackend() {
         }
 
         if (url.match(/\/api\/users\/\d+$/) && opts.method === 'DELETE') {
-          if (opts.headers && opts.headers.Authorization === 'Token fake-jwt-token') {
+          if (opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token') {
             let urlParts = url.split('/');
             let id = parseInt(urlParts[urlParts.length - 1], 10);
             for (var i = 0; i < users.length; i++) {
@@ -187,7 +187,7 @@ export function configureFakeBackend() {
         }
 
         if (url.endsWith('/api/tasks/daily') && opts.method === 'GET') {
-          if (opts.headers && opts.headers.Authorization === 'Token fake-jwt-token') {
+          if (opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token') {
             let responseJson = {
               token: 'fake-jwt-token',
               tasks: dailyTasks

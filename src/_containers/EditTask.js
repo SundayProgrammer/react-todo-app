@@ -94,7 +94,7 @@ class EditTask extends Component {
               <div className="date-priority-pickers">
                 <DatePicker
                   dateFormat="YYYY-MM-DD"
-                  selected={initDate}
+                  selected={{initDate}}
                   onChange={this.handleDateChange}
                 />
                 <div>

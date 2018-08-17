@@ -52,7 +52,6 @@ function getTasks(type, constraints) {
     dispatch(request({ type }));
 
     tasksService.getAll(type, constraints)
-      .then(response => response.json())
       .then(
         json => {
           dispatch(success(json, type));
@@ -63,21 +62,17 @@ function getTasks(type, constraints) {
       );
   }
 
-  const success = (json, type) => {
+  function success(json, type) {
     sessionStorage.setItem(type, JSON.stringify(json.tasks));
-    console.log(json.tasks.map(t => t.data));
     return {
       type: tasksConstants.GET_SUCCESS,
-      type,
-      posts: json.tasks.map(t => t.data)
+      filter: type,
+      tasks: json.tasks
     }
   }
   function request(type) {
-    return { type: tasksConstants.GET_REQUEST, type };
+    return { type: tasksConstants.GET_REQUEST, filter: type };
   }
-  // function success(type) {
-  //   return { type: tasksConstants.GET_SUCCESS, type };
-  // }
   function failure(error) {
     return { type: tasksConstants.GET_FAILURE, error };
   }

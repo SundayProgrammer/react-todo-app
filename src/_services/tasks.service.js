@@ -47,9 +47,11 @@ function getAll(type, constraints) {
   };
 
   if (typeof constraints === 'undefined') {
-    return fetch(`${config.urlDomain}/api/tasks/${type}`, requestOptions);
+    return fetch(`${config.urlDomain}/api/tasks/${type}`, requestOptions)
+                  .then(handleResponse);
   } else {
-    return fetch(`${config.urlDomain}/api/tasks/${type}/${constraints.id}`, requestOptions);
+    return fetch(`${config.urlDomain}/api/tasks/${type}/${constraints.id}`, requestOptions)
+                  .then(handleResponse);
   }
 
 }

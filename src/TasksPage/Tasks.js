@@ -13,14 +13,14 @@ class Tasks extends Component {
 
     this.state = {
       isFetching: false,
-      tasksFilter: 'daily'      // 'weekly'
+      selectedFilter: 'daily'      // 'weekly'
     }
   }
 
   handleFilterClick = (event) => {
     event.preventDefault();
 
-    this.setState({ tasksFilter: event.target.name })
+    this.setState({ selectedFilter: event.target.name })
   }
 
   componentDidMount() {
@@ -28,8 +28,29 @@ class Tasks extends Component {
     dispatch(taskActions.getTasks('daily'));
   }
 
+  static getDerivedStateFromProps(nextProps, state) {
+    if (nextProps.selectedFilter !== state.selectedFilter) {
+      const { dispatch, selectedFilter} = nextProps;
+      dispatch(taskActions.getTasks(selectedFilter));
+      return {
+        ...state,
+        selectedFilter: selectedFilter
+      }
+    } else if (nextProps.isFetching !== state.isFetching) {
+      return {
+        ...state,
+        isFetching: nextProps.isFetching
+      }
+    }
+    return null;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+
+  }
+
   render() {
-    const { isFetching } = this.props;
+    const { isFetching, tasks, selectedFilter } = this.props;
 
     return (
       <div>
@@ -47,8 +68,8 @@ class Tasks extends Component {
           </div>
         </div>
         { isFetching
-          ? <TaskBox tasks={[]} />
-          : <p> Loading... </p>
+          ? <p> Loading... </p>
+          : <TaskBox tasks={tasks} />
         }
       </div>
     )
@@ -60,10 +81,19 @@ class Tasks extends Component {
 }
 
 const mapStateToProps = state => {
-  const { isFetching } = { isFetching: true };
+  const { selectedFilter, tasksByFilter } = state;
+  const {
+    isFetching,
+    items: tasks
+  } = tasksByFilter[selectedFilter] || {
+    isFetching: true,
+    items: []
+  };
 
   return {
-    isFetching
+    isFetching,
+    tasks,
+    selectedFilter
   }
 }
 

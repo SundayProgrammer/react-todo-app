@@ -43,8 +43,8 @@ function register(user, history) {
   return dispatch => {
     dispatch(request(user));
 
-    userService.register(user).then(
-      user => {
+    userService.register(user.email, user.password).then(
+      json => {
         dispatch(success(user));
         history.push("/login");
       },

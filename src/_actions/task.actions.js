@@ -9,7 +9,7 @@ export const taskActions = {
 };
 
 /*
- * @// TODO:
+ * @TODO:
  * The task object is not returned by backend so there should be some
  * local tasks list created
  */

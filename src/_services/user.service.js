@@ -1,4 +1,33 @@
 import { authHeader } from "../_helpers";
+import { servicesConstants } from "../_constants";
+
+const request = options => {
+  const headers = new Headers({
+    "Content-Type": "application/json"
+  });
+
+  if (localStorage.getItem("authToken")) {
+    headers.append(
+      "Authorization",
+      "Bearer" + localStorage.getItem("authToken")
+    );
+  }
+
+  const defaults = { headers: headers };
+  options = Object.assign({}, defaults, options);
+
+  return fetch(options).then(response =>
+    response.json().then(json => {
+      if (!response.ok) {
+        if (response.status === 401) {
+          logout();
+        }
+        return Promise.reject(json);
+      }
+      return json;
+    })
+  );
+};
 
 export const userService = {
   login,
@@ -7,53 +36,28 @@ export const userService = {
 };
 
 function login(email, password) {
-  const requestOptions = {
+  return request({
+    url: servicesConstants.API_URL + "/users/signin",
     method: "POST",
-    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password })
-  };
-
-  return fetch("/api/users/authenticate", requestOptions)
-    .then(handleResponse)
-    .then(user => {
-      if (user.token) {
-        localStorage.setItem("user", JSON.stringify(user));
+  }).then(
+    json => {
+      if (json.token) {
+        localStorage.setItem(servicesConstants.AUTH_TOKEN);
       }
-
-      return user;
-    });
+      return json;
+    }
+  );
 }
 
 function logout() {
-  localStorage.removeItem("user");
+  localStorage.removeItem(servicesConstants.AUTH_TOKEN);
 }
 
-function register(user) {
-  const requestOptions = {
+function register(email, password) {
+  return request({
+    url: servicesConstants.API_URL + "/users/signup",
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(user)
-  };
-
-  return fetch("/api/users/register", requestOptions).then(handleResponse);
-}
-
-/*
- *  OTHER
- */
-
-function handleResponse(response) {
-  return response.text().then(text => {
-    const data = text && JSON.parse(text);
-    if (!response.ok) {
-      if (response.status === 401) {
-        logout();
-      }
-
-      const error = (data && data.message) || response.statusText;
-      return Promise.reject(error);
-    }
-
-    return data;
+    body: JSON.stringify({ email, password })
   });
 }

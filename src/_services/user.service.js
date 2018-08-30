@@ -2,21 +2,18 @@ import { authHeader } from "../_helpers";
 import { servicesConstants } from "../_constants";
 
 const request = options => {
-  const headers = new Headers({
+  let headers = {
     "Content-Type": "application/json"
-  });
+  };
 
   if (localStorage.getItem("authToken")) {
-    headers.append(
-      "Authorization",
-      "Bearer" + localStorage.getItem("authToken")
-    );
+    headers = { ...authHeader(), "Content-Type": "application/json" };
   }
 
   const defaults = { headers: headers };
   options = Object.assign({}, defaults, options);
 
-  return fetch(options).then(response =>
+  return fetch(options.url, options).then(response =>
     response.json().then(json => {
       if (!response.ok) {
         if (response.status === 401) {
@@ -40,14 +37,12 @@ function login(email, password) {
     url: servicesConstants.API_URL + "/users/signin",
     method: "POST",
     body: JSON.stringify({ email, password })
-  }).then(
-    json => {
-      if (json.token) {
-        localStorage.setItem(servicesConstants.AUTH_TOKEN);
-      }
-      return json;
+  }).then(json => {
+    if (json.token) {
+      localStorage.setItem(servicesConstants.AUTH_TOKEN, json.token);
     }
-  );
+    return json;
+  });
 }
 
 function logout() {
@@ -59,5 +54,8 @@ function register(email, password) {
     url: servicesConstants.API_URL + "/users/signup",
     method: "POST",
     body: JSON.stringify({ email, password })
+  }).then(json => {
+    console.log(json);
+    return json;
   });
 }

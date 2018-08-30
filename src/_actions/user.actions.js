@@ -12,8 +12,8 @@ function login(email, password, history) {
     dispatch(request({ email }));
 
     userService.login(email, password).then(
-      user => {
-        dispatch(success(user));
+      json => {
+        dispatch(success(email));
         history.push("/tasks");
       },
       error => {
@@ -41,11 +41,11 @@ function logout(history) {
 
 function register(user, history) {
   return dispatch => {
-    dispatch(request(user));
+    dispatch(request({ "email": user.email }));
 
     userService.register(user.email, user.password).then(
       json => {
-        dispatch(success(user));
+        dispatch(success(user.email));
         history.push("/login");
       },
       error => {

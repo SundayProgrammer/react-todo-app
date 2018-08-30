@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { ErrorBoundary } from "../_components";
+import { servicesConstants } from "../_constants";
 
 export const AuthenticatedRoute = ({ component: C, ...rest }) => {
   return (
@@ -8,7 +9,7 @@ export const AuthenticatedRoute = ({ component: C, ...rest }) => {
       <Route
         {...rest}
         render={props => {
-          return localStorage.getItem("user") ? (
+          return localStorage.getItem(servicesConstants.AUTH_TOKEN) ? (
             <C {...props} />
           ) : (
             <Redirect

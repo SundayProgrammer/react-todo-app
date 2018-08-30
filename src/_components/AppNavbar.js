@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Navbar, NavItem, Nav, NavLink, NavbarBrand } from "reactstrap";
 import { userActions } from "../_actions";
+import { servicesConstants } from "../_constants";
 
 class AppNavbar extends Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class AppNavbar extends Component {
   }
 
   componentDidMount() {
-    if (localStorage.getItem("user")) {
+    if (localStorage.getItem(servicesConstants.AUTH_TOKEN)) {
       this.setState({ isLogged: true });
     }
   }

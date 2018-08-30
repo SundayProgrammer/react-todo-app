@@ -1,12 +1,18 @@
 import { authHeader } from "../_helpers";
 import { servicesConstants } from "../_constants";
 
+export const userService = {
+  login,
+  logout,
+  register
+};
+
 const request = options => {
   let headers = {
     "Content-Type": "application/json"
   };
 
-  if (localStorage.getItem("authToken")) {
+  if (localStorage.getItem(servicesConstants.AUTH_TOKEN)) {
     headers = { ...authHeader(), "Content-Type": "application/json" };
   }
 
@@ -24,12 +30,6 @@ const request = options => {
       return json;
     })
   );
-};
-
-export const userService = {
-  login,
-  logout,
-  register
 };
 
 function login(email, password) {

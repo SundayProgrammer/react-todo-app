@@ -21,12 +21,10 @@ export const tasksService = {
  */
 function createEntity(type, objectToCreate) {
   const requestOptions = {
+    url: servicesConstants.AUTH_TOKEN + `/tasks/${type}`,
     method: "POST",
-    headers: { ...authHeader(), "Content-Type": "application/json" },
     body: JSON.stringify(objectToCreate)
   };
-
-  return fetch(`/api/${type}`, requestOptions).then(handleResponse);
 }
 
 /*
@@ -42,30 +40,24 @@ function createEntity(type, objectToCreate) {
  * - all
  */
 function getAll(type, constraints) {
-  const requestOptions = {
-    method: "GET",
-    headers: authHeader()
-  };
-
   if (typeof constraints === "undefined") {
-    return fetch(`${servicesConstants.API_URL}/tasks/${type}`, requestOptions).then(
-      handleResponse
-    );
+    return request({
+      url: servicesConstants.AUTH_TOKEN + `/tasks/${type}`,
+      method: "GET"
+    });
   } else {
-    return fetch(
-      `${servicesConstants.API_URL}/tasks/${type}/${constraints.id}`,
-      requestOptions
-    ).then(handleResponse);
+    return request({
+      url: servicesConstants.AUTH_TOKEN + `/tasks/${type}/${constraints.id}`,
+      method: "GET"
+    });
   }
 }
 
 function getClassifiers(type) {
-  const requestOptions = {
-    method: "GET",
-    headers: authHeader()
-  };
-
-  return fetch(`/api/${type}`, requestOptions).then(handleResponse);
+  return request({
+    url: servicesConstants.AUTH_TOKEN + `/${type}`,
+    method: "GET"
+  });
 }
 
 /*
@@ -75,17 +67,15 @@ function getClassifiers(type) {
  * - task
  * - project
  * - category
- * - user @// TODO: think about side effects
+ * - user @// TODO: think about side effects of putting users on this endpoint
  */
 
 function update(type, updateObject) {
-  const requestOptions = {
+  return request({
+    url: servicesConstants.API_URL + `/${type}/${updateObject.id}`,
     method: "PUT",
-    headers: { ...authHeader(), "Content-Type": "application/json" },
     body: JSON.stringify(updateObject)
-  };
-
-  return fetch(`/api/${type}/${updateObject.id}`);
+  });
 }
 
 /*
@@ -98,30 +88,35 @@ function update(type, updateObject) {
  */
 
 function _delete(type, id) {
-  const requestOptions = {
-    method: "DELETE",
-    headers: authHeader()
-  };
-
-  return fetch(`/api/${type}/${id}`, requestOptions).then(handleResponse);
+  return request({
+    url: servicesConstants.API_URL + `/${type}/${id}`,
+    method: "DELETE"
+  });
 }
 
 /*
  *  OTHER
  */
+const request = options => {
+  let headers = {};
+  if (localStorage.getItem(servicesConstants.AUTH_TOKEN)) {
+    headers = { ...authHeader(), "Content-Type": "application/json" };
+  } else {
+    return Promise.reject({ error: "You have to sign in to reach this path." });
+  }
 
-function handleResponse(response) {
-  return response.text().then(text => {
-    const data = text && JSON.parse(text);
-    if (!response.ok) {
-      if (response.status === 401) {
-        userService.logout();
+  const defaults = { headers: headers };
+  options = Object.assign({}, defaults, options);
+
+  return fetch(options.url, options).then(response =>
+    response.json().then(json => {
+      if (!response.ok) {
+        if (response.status === 401) {
+          userService.logout();
+        }
+        return Promise.reject(json);
       }
-
-      const error = (data && data.message) || response.statusText;
-      return Promise.reject(error);
-    }
-
-    return data;
-  });
-}
+      return json;
+    })
+  );
+};

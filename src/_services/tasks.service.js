@@ -20,11 +20,11 @@ export const tasksService = {
  * - category
  */
 function createEntity(type, objectToCreate) {
-  const requestOptions = {
-    url: servicesConstants.AUTH_TOKEN + `/tasks/${type}`,
+  return request({
+    url: servicesConstants.API_URL + `/tasks/${type}`,
     method: "POST",
     body: JSON.stringify(objectToCreate)
-  };
+  });
 }
 
 /*
@@ -42,12 +42,12 @@ function createEntity(type, objectToCreate) {
 function getAll(type, constraints) {
   if (typeof constraints === "undefined") {
     return request({
-      url: servicesConstants.AUTH_TOKEN + `/tasks/${type}`,
+      url: servicesConstants.API_URL + `/tasks/${type}`,
       method: "GET"
     });
   } else {
     return request({
-      url: servicesConstants.AUTH_TOKEN + `/tasks/${type}/${constraints.id}`,
+      url: servicesConstants.API_URL + `/tasks/${type}/${constraints.id}`,
       method: "GET"
     });
   }
@@ -55,7 +55,7 @@ function getAll(type, constraints) {
 
 function getClassifiers(type) {
   return request({
-    url: servicesConstants.AUTH_TOKEN + `/${type}`,
+    url: servicesConstants.API_URL + `/${type}`,
     method: "GET"
   });
 }

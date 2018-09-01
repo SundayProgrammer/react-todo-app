@@ -25,7 +25,7 @@ class Tasks extends Component {
 
   componentDidMount() {
     const { dispatch, history } = this.props;
-    dispatch(taskActions.getTasks("daily"));
+    dispatch(taskActions.getTasks("all"));
   }
 
   static getDerivedStateFromProps(nextProps, state) {
